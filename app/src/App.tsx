@@ -1,35 +1,48 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+import { useCoverage } from "./lib/CoverageProvider";
+
+export default function App() {
+  const { mapRef, resultMsg, resultClass, packages, provider } = useCoverage()
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
+    <div className="container py-5">
+      <nav className="navbar navbar-expand-lg px-3 mb-4" style={{ backgroundColor: "#1E90FF" }}>
+        <a className="navbar-brand" href="#">
+          <img src="logo.png" alt="PluxNet Logo" height={40} />
         </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+      </nav>
 
-export default App
+      <h2 className="mb-4 text-center">Check Fibre Coverage</h2>
+
+      <div className="mb-3">
+        <input id="address" type="text" className="form-control" placeholder="Enter your address" />
+      </div>
+
+      <div ref={mapRef} id="map" style={{ height: "400px", marginBottom: "20px" }}></div>
+
+      <div className={resultClass}>{resultMsg}</div>
+
+      {provider && packages && (
+        <div>
+          <h4>Available Packages</h4>
+          <div className="row">
+            {packages.map((pkg, idx) => (
+              <div key={idx} className="col-md-6">
+                <div className="package-card">
+                  <h5>
+                    {pkg.name} - {pkg.price}
+                  </h5>
+                  <ul>
+                    {pkg.features.map((feature, i) => (
+                      <li key={i}>{feature}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}

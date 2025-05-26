@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>PluxNet Fibre - Check Coverage</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --primary-color: #1E90FF;
+      --secondary-color: #FFFFFF;
+      --accent-color: #F39C12;
+      --text-color: #333333;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+    }
+
+    .navbar {
+      background-color: var(--primary-color);
+    }
+
+    .navbar-brand img {
+      height: 40px;
+    }
+
+    .btn-primary {
+      background-color: var(--accent-color);
+      border-color: var(--accent-color);
+    }
+
+    .btn-primary:hover {
+      background-color: #e08e0b;
+      border-color: #e08e0b;
+    }
+
+    #map {
+      height: 400px;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .package-card {
+      border: 1px solid var(--primary-color);
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .package-card h5 {
+      color: var(--primary-color);
+    }
+
+    .alert {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg px-3">
+    <a class="navbar-brand" href="#">
+      <img src="https://pluxnet.co.za/assets/images/logo/logo.png" alt="PluxNet Logo">
+    </a>
+  </nav>
+
+  <div class="container py-5">
+    <h2 class="mb-4 text-center">Check Fibre Coverage</h2>
+    <div class="mb-3">
+      <input type="text" id="address" class="form-control" placeholder="Enter your address" />
+    </div>
+    <div id="map"></div>
+    <div id="result" class="alert alert-info">Enter your address to check coverage.</div>
+
+    <div id="packages" style="display: none;">
+      <h4>Available Packages</h4>
+      <div id="packageList" class="row"></div>
+    </div>
+  </div>
+
+  <!-- Google Maps API -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUGTTam5-1BuiX9HavjN4uxYQKh_4Y1mY&libraries=places,geometry&callback=initMap" async defer></script>
+  <script>
+    const coverageAreas = [
+      {
+        name: "Sunninghill",
+        provider: "Frogfoot",
+        polygon: [
+          [-26.047, 28.055],
+          [-26.047, 28.075],
+          [-26.037, 28.075],
+          [-26.037, 28.055]
+        ]
+      },
+      {
+        name: "Bryanston",
+        provider: "Metrofibre",
+        polygon: [
+          [-26.05, 28.02],
+          [-26.05, 28.04],
+          [-26.03, 28.04],
+          [-26.03, 28.02]
+        ]
+      }
+    ];
+
+    const packages = {
+      "Frogfoot": [
+        { name: "20Mbps", price: "R499", features: ["Uncapped", "Unshaped", "Free Installation"] },
+        { name: "50Mbps", price: "R699", features: ["Uncapped", "Unshaped", "Free Router"] }
+      ],
+      "Metrofibre": [
+        { name: "25Mbps", price: "R529", features: ["Uncapped", "Unshaped", "Free Installation"] },
+        { name: "75Mbps", price: "R799", features: ["Uncapped", "Free Router", "Low Latency"] }
+      ]
+    };
+
+    let map, marker, autocomplete;
+
+    function initMap() {
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: -26.045, lng: 28.065 },
+        zoom: 13
+      });
+
+      // Draw coverage polygons
+      coverageAreas.forEach(area => {
+        new google.maps.Polygon({
+          paths: area.polygon.map(([lat, lng]) => ({ lat, lng })),
+          strokeColor: "#1E90FF",
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: "#1E90FF",
+          fillOpacity: 0.1,
+          map: map
+        });
+      });
+
+      const input = document.getElementById("address");
+      autocomplete = new google.maps.places.Autocomplete(input);
+      autocomplete.bindTo("bounds", map);
+
+      autocomplete.addListener("place_changed", () => {
+        const place = autocomplete.getPlace();
+        if (!place.geometry) return;
+
+        const location = place.geometry.location;
+
+        // Move map
+        map.setCenter(location);
+        map.setZoom(15);
+
+        // Set or update marker
+        if (marker) marker.setMap(null);
+        marker = new google.maps.Marker({
+          map,
+          position: location
+        });
+
+        checkCoverage(location.lat(), location.lng());
+      });
+    }
+
+    function checkCoverage(lat, lng) {
+      const point = new google.maps.LatLng(lat, lng);
+      let foundProvider = null;
+
+      coverageAreas.forEach(area => {
+        const polygon = new google.maps.Polygon({
+          paths: area.polygon.map(([lat, lng]) => ({ lat, lng }))
+        });
+        if (google.maps.geometry.poly.containsLocation(point, polygon)) {
+          foundProvider = area.provider;
+        }
+      });
+
+      const result = document.getElementById("result");
+      if (foundProvider) {
+        result.className = "alert alert-success";
+        result.textContent = `Good news! PluxNet Fibre is available in your area via ${foundProvider}.`;
+
+        displayPackages(foundProvider);
+      } else {
+        result.className = "alert alert-danger";
+        result.textContent = "Sorry, we currently do not have coverage at your location.";
+        document.getElementById("packages").style.display = "none";
+      }
+    }
+
+    function displayPackages(provider) {
+      const packageList = document.getElementById("packageList");
+      packageList.innerHTML = "";
+      packages[provider].forEach(pkg => {
+        const col = document.createElement("div");
+        col.className = "col-md-6";
+        col.innerHTML = `
+          <div class="package-card">
+            <h5>${pkg.name} - ${pkg.price}</h5>
+            <ul>
+              ${pkg.features.map(f => `<li>${f}</li>`).join("")}
+            </ul>
+          </div>
+        `;
+        packageList.appendChild(col);
+      });
+      document.getElementById("packages").style.display = "block";
+    }
+  </script>
+</body>
+</html>
+
