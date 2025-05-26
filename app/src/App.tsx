@@ -1,48 +1,28 @@
-
-import { useCoverage } from "./lib/CoverageProvider";
+import { CoverageProvider } from './lib/CoverageProvider.tsx'
+import CoverageChecker from "./components/CoverageChecker";
+import Features from "./components/Features";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import Hero from "./components/Hero";
+import MapChecker from "./components/MapChecker";
 
 export default function App() {
-  const { mapRef, resultMsg, resultClass, packages, provider } = useCoverage()
 
   return (
-    <div className="container py-5">
-      <nav className="navbar navbar-expand-lg px-3 mb-4" style={{ backgroundColor: "#1E90FF" }}>
-        <a className="navbar-brand" href="#">
-          <img src="logo.png" alt="PluxNet Logo" height={40} />
-        </a>
-      </nav>
-
-      <h2 className="mb-4 text-center">Check Fibre Coverage</h2>
-
-      <div className="mb-3">
+    <div className="min-h-screen bg-gray-50">
+      <Header />
+      <Hero />
+      {/* <div className="mb-3">
         <input id="address" type="text" className="form-control" placeholder="Enter your address" />
-      </div>
-
-      <div ref={mapRef} id="map" style={{ height: "400px", marginBottom: "20px" }}></div>
-
-      <div className={resultClass}>{resultMsg}</div>
-
-      {provider && packages && (
-        <div>
-          <h4>Available Packages</h4>
-          <div className="row">
-            {packages.map((pkg, idx) => (
-              <div key={idx} className="col-md-6">
-                <div className="package-card">
-                  <h5>
-                    {pkg.name} - {pkg.price}
-                  </h5>
-                  <ul>
-                    {pkg.features.map((feature, i) => (
-                      <li key={i}>{feature}</li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+      </div> */}
+      <CoverageProvider>
+        <CoverageChecker />
+        <MapChecker />
+      </CoverageProvider>
+      {/* <div ref={mapRef} id="map" style={{ height: "400px", marginBottom: "20px" }}></div> */}
+      {/* <div className={resultClass}>{resultMsg}</div> */}
+      <Features />
+      <Footer />
     </div>
   );
 }

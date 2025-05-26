@@ -2,13 +2,12 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
-import { CoverageProvider } from './lib/CoverageProvider.tsx'
+import { Toaster } from 'sonner'
 
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <CoverageProvider>
-      <App />
-    </CoverageProvider>
+    <App />
+    <Toaster position='top-center' richColors />
   </StrictMode>,
 )
