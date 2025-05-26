@@ -4,13 +4,14 @@ import type React from "react"
 import { toast } from "sonner"
 
 export default function CoverageChecker() {
-    const { } = useCoverage()
+    const { checkCoverage } = useCoverage()
 
     const handleCheckCoverage = (e: React.FormEvent) => {
+        e.preventDefault();
         toast.loading("Checking coverage...", {
             duration: 6000,
         })
-
+        checkCoverage();
     }
 
     return (
