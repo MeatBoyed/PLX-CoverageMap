@@ -1,0 +1,49 @@
+[
+    {
+        "name": "Vuma Surfer",
+        "speed": "50Mbps",
+        "price": "R649",
+        "description": "Home Surfer plan",
+        "features": [
+            "FREE Router",
+            "FREE Installation",
+            "50Mbps",
+            "24/7 Support",
+            "Uncapped",
+            "Unthrottled"
+        ],
+        "type": "home",
+        "isPopular": true
+    },
+    {
+        "name": "Vuma Premium",
+        "speed": "50Mbps",
+        "price": "R649",
+        "description": "Home Surfer plan",
+        "features": [
+            "FREE Router",
+            "FREE Installation",
+            "50Mbps",
+            "24/7 Support",
+            "Uncapped",
+            "Unthrottled"
+        ],
+        "type": "home",
+        "isPopular": true
+    },
+    {
+        "name": "Vuma Rocket",
+        "speed": "100Mbps",
+        "price": "R799",
+        "description": "High-speed home fibre",
+        "features": [
+            "FREE Router",
+            "FREE Installation",
+            "100Mbps",
+            "24/7 Support",
+            "Uncapped",
+            "Unthrottled"
+        ],
+        "type": "home"
+    }
+]

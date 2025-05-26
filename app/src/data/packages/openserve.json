@@ -1,0 +1,34 @@
+[
+    {
+        "name": "OpenServe Home Basic",
+        "speed": "20Mbps",
+        "price": "R399",
+        "description": "Home Basic - 20Mbps plan",
+        "features": [
+            "FREE Router",
+            "FREE Installation",
+            "20/20 Mbps",
+            "24/7 Support",
+            "Uncapped",
+            "Unthrottled"
+        ],
+        "type": "home"
+    },
+    {
+        "name": "OpenServe Business Package",
+        "speed": "50Mbps",
+        "price": "R1399",
+        "description": "Business grade connection for SMEs",
+        "features": [
+            "FREE Router",
+            "FREE Installation",
+            "50Mbps",
+            "24/7 Support",
+            "FREE Cloud PABX Subscription",
+            "Low call rates",
+            "Uncapped",
+            "Unthrottled"
+        ],
+        "type": "business"
+    }
+]
