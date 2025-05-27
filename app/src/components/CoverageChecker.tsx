@@ -2,15 +2,13 @@ import { MapPin, Search } from "lucide-react"
 import { useCoverage } from "../lib/CoverageProvider"
 import type React from "react"
 import { toast } from "sonner"
+import { Button } from "./ui/button"
 
 export default function CoverageChecker() {
     const { checkCoverage } = useCoverage()
 
     const handleCheckCoverage = (e: React.FormEvent) => {
         e.preventDefault();
-        toast.loading("Checking coverage...", {
-            duration: 6000,
-        })
         checkCoverage();
     }
 
@@ -36,7 +34,7 @@ export default function CoverageChecker() {
                                 />
                             </div>
                         </div>
-                        <button
+                        {/* <button
                             type="submit"
                             // disabled={isLoading}
                             className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-semibold py-3 px-6 rounded-lg transition duration-200 flex items-center justify-center space-x-2"
@@ -52,7 +50,8 @@ export default function CoverageChecker() {
                                     <span>Check Coverage</span>
                                 </>
                             )}
-                        </button>
+                        </button> */}
+                        <Button type="submit" className="w-full" >Check Coverage</Button>
                     </form>
                 </div>
             </div>

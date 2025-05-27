@@ -8,11 +8,13 @@ export default function Footer() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                     <div>
                         <div className="flex items-center space-x-2 mb-4">
-                            <Wifi className="h-6 w-6 text-blue-400" />
-                            <span className="text-lg font-bold">PluxNet Fibre</span>
+                            {/* <Wifi className="h-6 w-6 text-blue-400" /> */}
+
+                            <img src="/logo.png" alt="FastNet ISP Logo" className="h-16 w-60" />
+                            {/* <span className="text-lg font-bold">PluxNet Fibre</span> */}
                         </div>
                         <p className="text-gray-400 text-sm">
-                            Connecting communities with reliable, high-speed internet since 2010.
+                            Make the Switch
                         </p>
                     </div>
 

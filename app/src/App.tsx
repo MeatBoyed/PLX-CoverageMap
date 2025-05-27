@@ -11,7 +11,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      <Hero />
+      {/* <Hero /> */}
       {/* <div className="mb-3">
         <input id="address" type="text" className="form-control" placeholder="Enter your address" />
       </div> */}

@@ -174,18 +174,13 @@ export const CoverageProvider = ({ children }: { children: ReactNode }) => {
     const [packages, setPackages] = useState<Package[] | null>(null);
     const [address, setAddress] = useState("");
     const [selectedCoords, setSelectedCoords] = useState<{ lat: number; lng: number } | null>(null);
+    const [polygons, setPolygons] = useState<google.maps.Polygon[]>([]);
+
 
     const geoHandler = useRef(new GeoJSONHandler()).current;
     const packageHandler = useRef(new PackagesHandler()).current;
 
     // 🔁 Load GeoJSON Areas on Mount
-    // useEffect(() => {
-    //     const loadData = async () => {
-    //         const areas = await geoHandler.loadAll();
-    //         setCoverageAreas(areas);
-    //     };
-    //     loadData();
-    // }, []);
     useEffect(() => {
         const loadData = async () => {
             const areas = await geoHandler.loadAll();
@@ -193,6 +188,31 @@ export const CoverageProvider = ({ children }: { children: ReactNode }) => {
         };
         loadData();
     }, []);
+
+    // Draw the Coverage Areas on the Map
+    useEffect(() => {
+        if (!map || coverageAreas.length === 0) return;
+
+        // Clear any existing polygons
+        polygons.forEach(polygon => polygon.setMap(null));
+
+        const newPolygons: google.maps.Polygon[] = coverageAreas.map((area) => {
+            const polygon = new google.maps.Polygon({
+                paths: area.polygon.map(([lat, lng]) => ({ lat, lng })),
+                strokeColor: "#262c6e", // PluxNet Astronaut Blue
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                // use green
+                fillColor: "#00FF00",
+                fillOpacity: 0.2,
+            });
+            polygon.setMap(map);
+            return polygon;
+        });
+
+        setPolygons(newPolygons);
+    }, [map, coverageAreas]);
+
 
     // 🌍 Initialize Map + Autocomplete once
     useEffect(() => {
