@@ -9,7 +9,7 @@ export default function Footer() {
                     <div>
                         <div className="flex items-center space-x-2 mb-4">
                             <Wifi className="h-6 w-6 text-blue-400" />
-                            <span className="text-lg font-bold">FastNet ISP</span>
+                            <span className="text-lg font-bold">PluxNet Fibre</span>
                         </div>
                         <p className="text-gray-400 text-sm">
                             Connecting communities with reliable, high-speed internet since 2010.
@@ -41,18 +41,18 @@ export default function Footer() {
                         <div className="space-y-2 text-sm text-gray-400">
                             <div className="flex items-center space-x-2">
                                 <Phone className="h-4 w-4" />
-                                <span>1-800-FASTNET</span>
+                                <span>1-800-PluxNet Fibre</span>
                             </div>
                             <div className="flex items-center space-x-2">
                                 <Mail className="h-4 w-4" />
-                                <span>support@fastnet.com</span>
+                                <span>newsales@PluxNet Fibre.com</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-400">
-                    <p>&copy; 2024 FastNet ISP. All rights reserved.</p>
+                    <p>&copy; 2024 PluxNet Fibre. All rights reserved.</p>
                 </div>
             </div>
         </footer>
