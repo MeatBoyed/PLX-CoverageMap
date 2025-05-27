@@ -167,8 +167,8 @@ export const CoverageProvider = ({ children }: { children: ReactNode }) => {
     const mapRef = useRef<HTMLDivElement>(null);
     const [map, setMap] = useState<google.maps.Map>();
     const [marker, setMarker] = useState<google.maps.Marker>();
-    const [resultMsg, setResultMsg] = useState("Enter your address to check coverage.");
-    const [resultClass, setResultClass] = useState("alert alert-info");
+    const [resultMsg,] = useState("Enter your address to check coverage.");
+    const [resultClass,] = useState("alert alert-info");
     const [provider, setProvider] = useState<string | null>(null);
     const [coverageAreas, setCoverageAreas] = useState<CoverageArea[]>([]);
     const [packages, setPackages] = useState<Package[] | null>(null);

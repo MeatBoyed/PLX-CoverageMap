@@ -1,19 +1,18 @@
-import { Package, Zap } from "lucide-react"
 import { useCoverage } from "../lib/CoverageProvider"
 import PackageCard from "./PackageCard"
 
 export default function MapChecker() {
     const { provider, packages, mapRef } = useCoverage()
 
-    const getColorClasses = (color: string, variant: "bg" | "border" | "text") => {
-        const colorMap = {
-            blue: { bg: "bg-blue-500", border: "border-blue-500", text: "text-blue-600" },
-            green: { bg: "bg-green-500", border: "border-green-500", text: "text-green-600" },
-            purple: { bg: "bg-purple-500", border: "border-purple-500", text: "text-purple-600" },
-            orange: { bg: "bg-orange-500", border: "border-orange-500", text: "text-orange-600" },
-        }
-        return colorMap[color as keyof typeof colorMap][variant]
-    }
+    // const getColorClasses = (color: string, variant: "bg" | "border" | "text") => {
+    //     const colorMap = {
+    //         blue: { bg: "bg-blue-500", border: "border-blue-500", text: "text-blue-600" },
+    //         green: { bg: "bg-green-500", border: "border-green-500", text: "text-green-600" },
+    //         purple: { bg: "bg-purple-500", border: "border-purple-500", text: "text-purple-600" },
+    //         orange: { bg: "bg-orange-500", border: "border-orange-500", text: "text-orange-600" },
+    //     }
+    //     return colorMap[color as keyof typeof colorMap][variant]
+    // }
 
     return (
         <section className="py-4 sm:py-6 relative">

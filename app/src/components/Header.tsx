@@ -1,5 +1,3 @@
-import { Wifi, Phone } from "lucide-react";
-
 export default function Header() {
 
     return (

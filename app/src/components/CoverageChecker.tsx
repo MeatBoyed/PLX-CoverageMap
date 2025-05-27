@@ -1,7 +1,6 @@
-import { MapPin, Search } from "lucide-react"
+import { MapPin } from "lucide-react"
 import { useCoverage } from "../lib/CoverageProvider"
 import type React from "react"
-import { toast } from "sonner"
 import { Button } from "./ui/button"
 
 export default function CoverageChecker() {
