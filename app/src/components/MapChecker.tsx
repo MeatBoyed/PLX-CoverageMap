@@ -1,4 +1,5 @@
 import { useCoverage } from "../lib/CoverageProvider"
+import FNOColourCode from "./FNOColourCode"
 import PackageCard from "./PackageCard"
 
 export default function MapChecker() {
@@ -44,6 +45,7 @@ export default function MapChecker() {
 
                 {/* Map Container */}
                 <div className="relative min-h-[600px] sm:min-h-[600px] lg:min-h-[600px]">
+                    <FNOColourCode />
                     {/* Map Placeholder */}
                     <div className="w-full h-96 sm:h-[600px] lg:h-[600px] bg-gradient-to-br from-green-100 via-blue-50 to-green-50 rounded-lg shadow-lg border border-gray-200 relative overflow-hidden">
                         <div ref={mapRef} id="map" style={{ height: "600px", marginBottom: "5px" }}></div>
