@@ -1,9 +1,28 @@
-import { useCoverage } from "../lib/CoverageProvider"
+import { useCallback, useEffect } from "react"
+import { useCoverage, type POI } from "../lib/CoverageProvider"
 import FNOColourCode from "./FNOColourCode"
 import PackageCard from "./PackageCard"
+import { Checkbox } from "./ui/checkbox"
+import { Button } from "./ui/button"
 
 export default function MapChecker() {
-    const { provider, packages, mapRef } = useCoverage()
+    const { provider, packages, mapRef, setVisiblePOITypes, visiblePOITypes } = useCoverage()
+
+    const togglePOI = (poiType: POI) => {
+        const isActive = visiblePOITypes.includes(poiType);
+        const updated = isActive
+            ? visiblePOITypes.filter(t => t !== poiType) as POI[]
+            : [...visiblePOITypes, poiType] as POI[];
+        setVisiblePOITypes(updated);
+    };
+
+    // useEffect(() => {
+    //     if (!mapRef.current) return
+
+    //     // Your logic to (re)draw POIs or update map
+    //     drawPOIsOnMap(mapRef.current, visiblePOITypes)
+
+    // }, [mapRef, visiblePOITypes, mapRefreshToken]) // <== triggers when refreshMap() is called
 
     // const getColorClasses = (color: string, variant: "bg" | "border" | "text") => {
     //     const colorMap = {
@@ -46,6 +65,76 @@ export default function MapChecker() {
                 {/* Map Container */}
                 <div className="relative min-h-[600px] sm:min-h-[600px] lg:min-h-[600px]">
                     <FNOColourCode />
+                    {/* POI Selection */}
+                    {/* <div className="flex justify-ceter items-center space-x-4 mb-4">
+                        <div className="flex items-center space-x-2">
+                            <Checkbox
+                                aria-label="Toggle attraction"
+                                onCheckedChange={() => togglePOI("poi.attraction")} checked={visiblePOITypes.includes("poi.attraction")} />
+                            <p className="text-sm font-medium text-gray-700">
+                                Attraction
+                            </p>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                            <Checkbox
+                                aria-label="Toggle business"
+                                onCheckedChange={() => togglePOI("poi.business")} checked={visiblePOITypes.includes("poi.business")} />
+                            <p className="text-sm font-medium text-gray-700">
+                                Business
+                            </p>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                            <Checkbox
+                                aria-label="Toggle government"
+                                onCheckedChange={() => togglePOI("poi.government")} checked={visiblePOITypes.includes("poi.government")} />
+                            <p className="text-sm font-medium text-gray-700">
+                                Government
+                            </p>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                            <Checkbox
+                                aria-label="Toggle hospital"
+                                onCheckedChange={() => (
+                                    togglePOI("poi.medical")
+                                )} checked={visiblePOITypes.includes("poi.medical")} />
+                            <p className="text-sm font-medium text-gray-700">
+                                Medical
+                            </p>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                            <Checkbox
+                                aria-label="Toggle place of worship"
+                                onCheckedChange={() => togglePOI("poi.place_of_worship")} checked={visiblePOITypes.includes("poi.place_of_worship")} />
+                            <p className="text-sm font-medium text-gray-700">
+                                Place of Worship
+                            </p>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                            <Checkbox
+                                aria-label="Toggle post office"
+                                onCheckedChange={() => togglePOI("poi.post_office")} checked={visiblePOITypes.includes("poi.post_office")} />
+                            <p className="text-sm font-medium text-gray-700">
+                                Post Office
+                            </p>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                            <Checkbox
+                                aria-label="Toggle school"
+                                onCheckedChange={() => togglePOI("poi.school")} checked={visiblePOITypes.includes("poi.school")} />
+                            <p className="text-sm font-medium text-gray-700">
+                                School
+                            </p>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                            <Checkbox
+                                aria-label="Toggle shopping mall"
+                                onCheckedChange={() => togglePOI("poi.shopping_mall")} checked={visiblePOITypes.includes("poi.shopping_mall")} />
+                            <p className="text-sm font-medium text-gray-700">
+                                Shopping Mall
+                            </p>
+                        </div>
+                    </div> */}
+
                     {/* Map Placeholder */}
                     <div className="w-full h-96 sm:h-[600px] lg:h-[600px] bg-gradient-to-br from-green-100 via-blue-50 to-green-50 rounded-lg shadow-lg border border-gray-200 relative overflow-hidden">
                         <div ref={mapRef} id="map" style={{ height: "600px", marginBottom: "5px" }}></div>
