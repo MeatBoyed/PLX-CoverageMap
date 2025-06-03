@@ -1,16 +1,23 @@
 # version: '3.4'
 
 services:
-  coverage-pluxnet-nextjs:
+  coverage-nextjs:
     build:
       context: .
       dockerfile: Dockerfile
-    restart: always
     ports:
-      - "127.0.0.1:5173:5173"
+      #- "127.0.0.1:3022:80" # access via http://localhost:3000
+      - "3022:80"
+    restart: unless-stopped
     networks:
-      - bridge
+      - default
+      - public-proxy
 
+volumes:
+  coverage-nextjs:
 
 networks:
-  bridge:
+  default:
+    name: coverage_default
+  public-proxy:
+    external: true
