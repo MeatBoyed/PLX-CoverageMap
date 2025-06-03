@@ -4,9 +4,10 @@ import FNOColourCode from "./FNOColourCode"
 import PackageCard from "./PackageCard"
 import { Checkbox } from "./ui/checkbox"
 import { Button } from "./ui/button"
+import { cn } from "../lib/utils"
 
 export default function MapChecker() {
-    const { provider, packages, mapRef, setVisiblePOITypes, visiblePOITypes } = useCoverage()
+    const { provider, packages, mapRef, setVisiblePOITypes, visiblePOITypes, mapType, setMapType } = useCoverage()
 
     const togglePOI = (poiType: POI) => {
         const isActive = visiblePOITypes.includes(poiType);
@@ -65,6 +66,13 @@ export default function MapChecker() {
                 {/* Map Container */}
                 <div className="relative min-h-[600px] sm:min-h-[600px] lg:min-h-[600px]">
                     <FNOColourCode />
+                    {/* Map Type Selection */}
+                    {/* <div className="flex justify-ceter items-center space-x-4 mb-4">
+                        <Button onClick={() => setMapType("roadmap")} className={cn("bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg", mapType === "roadmap" && "ring-2 ring-green-200")} >Roadmap</Button>
+                        <Button onClick={() => setMapType("hybrid")} className={cn("bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg", mapType === "hybrid" && "ring-2 ring-green-200")} >Hybrid</Button>
+                        <Button onClick={() => setMapType("satellite")} className={cn("bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg", mapType === "satellite" && "ring-2 ring-green-200")}>Satellite</Button>
+                        <Button onClick={() => setMapType("terrain")} className={cn("bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg", mapType === "terrain" && "ring-2 ring-green-200")}>Terrain</Button>
+                    </div> */}
                     {/* POI Selection */}
                     {/* <div className="flex justify-ceter items-center space-x-4 mb-4">
                         <div className="flex items-center space-x-2">

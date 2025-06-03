@@ -15,10 +15,10 @@ export default function FNOColourCode() {
                             <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
                             <span className="text-xs text-gray-600">Vumatel</span>
                         </div>
-                        {/* <div className="flex items-center space-x-1.5">
+                        <div className="flex items-center space-x-1.5">
                             <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
-                            <span className="text-xs text-gray-600">Frogfoot</span>
-                        </div> */}
+                            <span className="text-xs text-gray-600">PlanetGIS</span>
+                        </div>
                         {/* <div className="flex items-center space-x-1.5">
                             <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
                             <span className="text-xs text-gray-600">MetroFibre</span>
