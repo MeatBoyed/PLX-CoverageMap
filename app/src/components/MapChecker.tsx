@@ -1,21 +1,17 @@
-import { useCallback, useEffect } from "react"
-import { useCoverage, type POI } from "../lib/CoverageProvider"
+import { useCoverage } from "../lib/CoverageProvider"
 import FNOColourCode from "./FNOColourCode"
 import PackageCard from "./PackageCard"
-import { Checkbox } from "./ui/checkbox"
-import { Button } from "./ui/button"
-import { cn } from "../lib/utils"
 
 export default function MapChecker() {
-    const { provider, packages, mapRef, setVisiblePOITypes, visiblePOITypes, mapType, setMapType } = useCoverage()
+    const { provider, packages, mapRef } = useCoverage()
 
-    const togglePOI = (poiType: POI) => {
-        const isActive = visiblePOITypes.includes(poiType);
-        const updated = isActive
-            ? visiblePOITypes.filter(t => t !== poiType) as POI[]
-            : [...visiblePOITypes, poiType] as POI[];
-        setVisiblePOITypes(updated);
-    };
+    // const togglePOI = (poiType: POI) => {
+    //     const isActive = visiblePOITypes.includes(poiType);
+    //     const updated = isActive
+    //         ? visiblePOITypes.filter(t => t !== poiType) as POI[]
+    //         : [...visiblePOITypes, poiType] as POI[];
+    //     setVisiblePOITypes(updated);
+    // };
 
     // useEffect(() => {
     //     if (!mapRef.current) return
